@@ -42,6 +42,9 @@ def build_augmentation_pipeline():
 def model(input_shape=(32, 32, 3), num_classes=10):
     inputs = keras.Input(shape=input_shape, name="input_image")
 
+    data_augmentation = build_augmentation_pipeline()
+    x = data_augmentation(inputs)
+
     x = layers.Conv2D(32, kernel_size=(3, 3), padding="same", activation="relu", name="conv1")(inputs)
     x = layers.BatchNormalization(name="bn1")(x)
     x = layers.MaxPooling2D(pool_size=(2, 2), name="pool1")(x)
@@ -49,6 +52,7 @@ def model(input_shape=(32, 32, 3), num_classes=10):
     x = layers.Conv2D(64, kernel_size=(3, 3), padding="same", activation="relu", name="conv2")(x)
     x = layers.BatchNormalization(name="bn2")(x)
     x = layers.MaxPooling2D(pool_size=(2, 2), name="pool2")(x)
+    
 
     x = layers.Conv2D(128, kernel_size=(3, 3), padding="same", activation="relu", name="conv3")(x)
     x = layers.BatchNormalization(name="bn3")(x)
@@ -74,8 +78,6 @@ def compile_model(model, learning_rate=LEARNING_RATE):
 
 
 def train_model(model, x_train, y_train, x_test, y_test, augmentation, epochs=EPOCHS, batch_size=BATCH_SIZE):
-    x_train_aug = augmentation(x_train, training=True)
-
     callbacks = [
         keras.callbacks.EarlyStopping(
             monitor="val_accuracy", patience=5, restore_best_weights=True, verbose=1
