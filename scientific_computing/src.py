@@ -106,9 +106,7 @@ def build_model(input_shape=(32, 32, 3), num_classes=10):
 
 def compile_model(model, learning_rate=LEARNING_RATE):
 
-    optimizer = keras.optimizers.Adam(
-        learning_rate=learning_rate
-    )
+    optimizer = keras.optimizers.Adam(learning_rate=learning_rate)
 
     model.compile(
         optimizer=optimizer,
@@ -354,31 +352,13 @@ if __name__ == "__main__":
         learning_rate=LEARNING_RATE
     )
 
-    history = train_model(
-        model,
-        x_train,
-        y_train,
-        x_test,
-        y_test
-    )
+    history = train_model(model, x_train, y_train, x_test, y_test)
+    
+    evaluate_model(model, x_test, y_test)
 
-    evaluate_model(
-        model,
-        x_test,
-        y_test
-    )
-
-    show_confusion_matrix(
-        model,
-        x_test,
-        y_test
-    )
+    show_confusion_matrix(model, x_test, y_test)
 
     save_training_plots(history)
 
-    predict_samples(
-        model,
-        x_test,
-        y_test
-    )# predict_samples
+    predict_samples(model, x_test, y_test)# predict_samples
     
