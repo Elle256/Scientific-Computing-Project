@@ -24,7 +24,7 @@ Classes:
 ---
 
 # 2. Model Architecture
-
+```text
 The CNN architecture is organized as follows:
 
 Input (32×32×3)
@@ -60,7 +60,7 @@ Dense(256, ReLU)
 Dropout(0.5)
 ↓
 Dense(10, Softmax)
-
+```
 ---
 
 ## Data Augmentation
@@ -315,7 +315,7 @@ Generated files:
 ---
 
 # 8. Workflow
-
+```text
 Load CIFAR-10 Dataset
 ↓
 Normalize Images
@@ -341,3 +341,4 @@ Confusion Matrix
 Training Visualization
 ↓
 Sample Predictions
+```
